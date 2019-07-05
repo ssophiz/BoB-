@@ -1,2 +1,2 @@
 # myBlog
-myBlog with Django
+Project
