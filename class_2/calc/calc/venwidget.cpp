@@ -5,8 +5,6 @@ VenWidget::VenWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::VenWidget)
 {
-    //ui->lcdNumber->windowIconTextChanged(QString:: number(number));
-    //
 
     ui->setupUi(this);
 
@@ -21,8 +19,6 @@ VenWidget::~VenWidget()
 }
 void VenWidget :: MoneyChange(int number)
 {
-
-
     QMessageBox m;
     int n;
 
@@ -30,7 +26,7 @@ void VenWidget :: MoneyChange(int number)
         m.information(nullptr,"Please","Do not this action, Please Input your more money");
 
     else
-     //   m.information(nullptr,"Purchase",number);
+
         VenWidget :: number += number;
 
     ui->lcdNumber->display(QString::number(VenWidget::number));
@@ -51,9 +47,6 @@ void VenWidget :: MoneyChange(int number)
        ui->milk->setDisabled(true);
     else
         ui->milk->setEnabled(true);
-
-
-
 
     ui->lcdNumber->display(QString::number(VenWidget::number));
 
@@ -98,8 +91,9 @@ void VenWidget::on_milk_clicked()
 
 void VenWidget::on_reset_clicked()
 {
+  QMessageBox m;
   int number=VenWidget :: number ;
-  int n500, n100, n50, n10;
+  int n500{0}, n100{0}, n50{0}, n10{0};
 
   if(number / 500 > 0 ){
   n500 = number / 500 ;
@@ -120,6 +114,8 @@ void VenWidget::on_reset_clicked()
     n10 = number / 10;
     number -= (n10 * 10);
   }
+   m.information(nullptr,"Reset your coin","500 : "+ QString::number(n500) + ", 100: " + QString::number(n100) + ", 50:"+QString::number(n50)+", 10:"+QString::number(n10));
+   VenWidget::number = number;
+   ui->lcdNumber->display(QString::number(VenWidget::number));
 
-   ui
 }
