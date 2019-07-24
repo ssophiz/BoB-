@@ -49,8 +49,10 @@ void print_HTTP_TCP_Data(const u_char* ptr, ip* p, tcp* tp,int cursor){
     if(ntohs((u_int16_t*)tp->src_port) == 80 || ntohs((u_int16_t*)tp->dst_port) == 80 ){ //get HTTP, HTTPS
 	    //cursor += 6;
 	    idx = 0 ;
-	    while(ptr[cursor+idx] != 0x0d && ptr[cursor+idx+1] != 0x0a) // check carriage return
-		printf("%c ", ptr[cursor+idx++]);
+	    while(ptr[cursor+idx] != 0x0d && ptr[cursor+idx+1] != 0x0a){ // check carriage return
+		printf("%c ", ptr[cursor+idx]);
+		idx++;
+		}
        printf("\n");
     }
     else
@@ -147,6 +149,9 @@ int main(int argc, char* argv[]) {
     fprintf(stderr, "couldn't open device %s: %s\n", dev, errbuf);
     return -1;
   }
+	char track[] = "취약점";
+	char name[] = "김원겸";
+	printf("[bob8][%s]pcap_test[%s]", track, name);
 
   while (true) {
     struct pcap_pkthdr* header;

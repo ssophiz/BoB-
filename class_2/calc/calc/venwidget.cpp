@@ -5,14 +5,14 @@ VenWidget::VenWidget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::VenWidget)
 {
-
+    QMessageBox m;
     ui->setupUi(this);
+    m.information(nullptr,"HomeWork","[bob8][취약점]vending_machine[김원겸]");
 
     ui->coke->setDisabled(true);
     ui->milk->setDisabled(true);
     ui->tea->setDisabled(true);
 }
-
 VenWidget::~VenWidget()
 {
     delete ui;
