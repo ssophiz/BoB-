@@ -77,8 +77,10 @@ void ArpSpoof(const char* if_name,const char* sender_ip_string,const char* targe
     if (!pcap) {
        return; //exit(1);
     }
-    while(1)
-    pcap_sendpacket(pcap,frame,sizeof(frame));
+    for(int i=0;i<20;i++){
+	    printf("execute!\n");
+    	    pcap_sendpacket(pcap,frame,sizeof(frame));
+    }
     pcap_close(pcap);
     //close(fd);
     return;
@@ -191,12 +193,15 @@ void Send_ArpRequest(const char* if_name, const char* sender_ip_string,const cha
 
 int main(int argc,const char* argv[])
 {
-
+    char track[] = "취약점"; 
+    char name[] = "김원겸";
+    printf("[bob8][%s]send_arp[%s]", track, name);
+     
     const char* if_name=argv[1];
     const char* sender_ip_string=argv[2];
     const char* target_ip_string=argv[3];
     char* my_ip_string;
-    char* sender_packet[0x3c];
+
 
     Send_ArpRequest(if_name,sender_ip_string,target_ip_string);
 
